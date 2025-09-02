@@ -5,30 +5,30 @@ export default function Home() {
     <main className="flex h-[calc(100vh-4rem)] w-full flex-col items-center justify-center">
       <div className="flex flex-wrap items-center justify-center gap-2">
         <SplitText
-          className="font-bold text-4xl"
+          className="font-bold text-5xl"
           delay={50}
           duration={0.8}
           from={{ opacity: 0, y: 40 }}
           splitType="chars"
-          tag="span"
+          tag="h1"
           text="Hi I'm"
           threshold={0.1}
           to={{ opacity: 1, y: 0, delay: 0 }}
         />
         <SplitText
-          className="bg-gradient-to-r from-green-400 to-green-600 bg-clip-text font-bold text-4xl text-transparent"
+          className="font-bold text-5xl text-primary"
           delay={50}
           duration={0.8}
           from={{ opacity: 0, y: 40 }}
           splitType="chars"
-          tag="span"
+          tag="h1"
           text="notreallyuri"
           threshold={0.1}
-          to={{ opacity: 1, y: 0, delay: 0.4 }}
+          to={{ opacity: 1, y: 0, delay: 0.3 }}
         />
       </div>
       <SplitText
-        className="font-bold text-4xl"
+        className="font-bold text-5xl"
         delay={50}
         duration={0.8}
         from={{ opacity: 0, y: 40 }}
@@ -36,10 +36,10 @@ export default function Home() {
         tag="h1"
         text="and this is"
         threshold={0.1}
-        to={{ opacity: 1, y: 0, delay: 0.6 }}
+        to={{ opacity: 1, y: 0, delay: 0.8 }}
       />
       <SplitText
-        className="font-bold text-4xl"
+        className="font-bold text-5xl"
         delay={50}
         duration={0.8}
         from={{ opacity: 0, y: 40 }}
@@ -47,8 +47,32 @@ export default function Home() {
         tag="h1"
         text="my portfolio"
         threshold={0.1}
-        to={{ opacity: 1, y: 0, delay: 1.0 }}
+        to={{ opacity: 1, y: 0, delay: 1.3 }}
       />
+      <div>
+        <SplitText
+          className="font-medium"
+          delay={50}
+          duration={0.8}
+          from={{ opacity: 0, y: 40 }}
+          splitType="chars"
+          tag="h1"
+          text={"(I'm actuall"}
+          threshold={0.1}
+          to={{ opacity: 1, y: 0, delay: 2.5 }}
+        />
+        <SplitText
+          className="font-medium text-primary"
+          delay={50}
+          duration={0.8}
+          from={{ opacity: 0, y: 40 }}
+          splitType="chars"
+          tag="h1"
+          text={'yuri)'}
+          threshold={0.1}
+          to={{ opacity: 1, y: 0, delay: 2.8 }}
+        />
+      </div>
     </main>
   );
 }
