@@ -2,8 +2,8 @@ import { SplitText } from '@/components/split-text';
 
 export default function Home() {
   return (
-    <main className="flex h-[calc(100vh-4rem)] w-full flex-col items-center justify-center">
-      <div className="flex flex-wrap items-center justify-center gap-2">
+    <main className="flex h-screen w-full flex-col items-center justify-center">
+      <div className="flex flex-wrap items-center justify-center">
         <SplitText
           className="font-bold text-4xl"
           delay={50}
@@ -11,18 +11,18 @@ export default function Home() {
           from={{ opacity: 0, y: 40 }}
           splitType="chars"
           tag="span"
-          text="Hi I'm"
+          text="Hi I'm notreall"
           threshold={0.1}
           to={{ opacity: 1, y: 0, delay: 0 }}
         />
         <SplitText
-          className="bg-gradient-to-r from-green-400 to-green-600 bg-clip-text font-bold text-4xl text-transparent"
+          className="font-bold text-4xl text-primary"
           delay={50}
           duration={0.8}
           from={{ opacity: 0, y: 40 }}
           splitType="chars"
           tag="span"
-          text="notreallyuri"
+          text="yuri"
           threshold={0.1}
           to={{ opacity: 1, y: 0, delay: 0.4 }}
         />
@@ -49,6 +49,41 @@ export default function Home() {
         threshold={0.1}
         to={{ opacity: 1, y: 0, delay: 1.0 }}
       />
+      <div>
+        <SplitText
+          className="font-semibold text-lg text-muted-foreground"
+          delay={50}
+          duration={0.8}
+          from={{ opacity: 0, y: 20 }}
+          splitType="chars"
+          tag="span"
+          text="(I'm actuall"
+          threshold={0.1}
+          to={{ opacity: 1, y: 0, delay: 3.5 }}
+        />
+        <SplitText
+          className="font-semibold text-lg text-primary/75"
+          delay={50}
+          duration={0.8}
+          from={{ opacity: 0, y: 20 }}
+          splitType="chars"
+          tag="span"
+          text="yuri"
+          threshold={0.1}
+          to={{ opacity: 1, y: 0, delay: 3.8 }}
+        />
+        <SplitText
+          className="font-semibold text-lg text-muted-foreground"
+          delay={50}
+          duration={0.8}
+          from={{ opacity: 0, y: 20 }}
+          splitType="chars"
+          tag="span"
+          text=")"
+          threshold={0.1}
+          to={{ opacity: 1, y: 0, delay: 4.0 }}
+        />
+      </div>
     </main>
   );
 }

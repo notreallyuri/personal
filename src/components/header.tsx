@@ -11,68 +11,43 @@ import {
 } from './ui/tooltip';
 
 export function Header() {
+  const navData = [
+    { name: 'Projects', href: '/projects', icon: FolderOpen },
+    { name: 'Articles', href: '/articles', icon: FileText },
+    { name: 'About', href: '/about', icon: User },
+  ];
+
   return (
-    <header className="stickyh top-2 flex h-12 w-full items-center justify-between rounded-xl border border-sidebar-border bg-sidebar p-2 shadow dark:shadow-none">
+    <header className="-translate-x-1/2 fixed top-2 left-1/2 flex h-14 w-fit items-center gap-2 rounded-lg border border-sidebar-border bg-sidebar p-2">
       <Link
         className="font-bold text-xl transition-opacity hover:opacity-80"
         href={{ pathname: '/' }}
       >
         notreall<span className="text-primary">yuri</span>
       </Link>
+      <Separator orientation="vertical" />
       <div className="flex h-full items-center gap-4">
-        <nav className="inline-flex gap-3 font-medium [&>svg]:hover:underline">
+        <nav className="inline-flex gap-3 font-medium">
           <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  asChild
-                  className="hover:text-primary"
-                  size="icon"
-                  variant="ghost"
-                >
-                  <Link href={{ pathname: '/projects' }}>
-                    <FolderOpen className="size-4" />
-                  </Link>
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <span>Projects</span>
-              </TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  asChild
-                  className="hover:text-primary"
-                  size="icon"
-                  variant="ghost"
-                >
-                  <Link href={{ pathname: '/articles' }}>
-                    <FileText className="size-4" />
-                  </Link>
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <span>Articles</span>
-              </TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  asChild
-                  className="hover:text-primary"
-                  size="icon"
-                  variant="ghost"
-                >
-                  <Link href={{ pathname: '/about' }}>
-                    <User className="size-4" />
-                  </Link>
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <span>About</span>
-              </TooltipContent>
-            </Tooltip>
+            {navData.map((item) => (
+              <Tooltip key={item.name}>
+                <TooltipTrigger asChild>
+                  <Button
+                    asChild
+                    className="hover:text-primary"
+                    size="icon"
+                    variant="ghost"
+                  >
+                    <Link href={{ pathname: item.href }}>
+                      <item.icon className="size-4" />
+                    </Link>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <span>{item.name}</span>
+                </TooltipContent>
+              </Tooltip>
+            ))}
           </TooltipProvider>
         </nav>
         <Separator orientation="vertical" />
