@@ -15,7 +15,7 @@ export function ProjectCard({ project }: { project: Project }) {
         <p>{project.description}</p>
       </div>
 
-      <ul className="flex gap-2 overflow-x-scroll">
+      <ul className="overflow-x-scrolld ty flex gap-2">
         {project.tags.map((tag) => (
           <li key={tag}>{tag}</li>
         ))}
