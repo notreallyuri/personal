@@ -11,25 +11,26 @@ import {
 } from './ui/tooltip';
 
 export function Header() {
-  const pathData: { name: string; path: string; icon: LucideIcon }[] = [
-    { name: 'Projects', path: '/projects', icon: FolderOpen },
-    { name: 'Articles', path: '/articles', icon: FileText },
-    { name: 'About', path: '/about', icon: User },
+  const navData = [
+    { name: 'Projects', href: '/projects', icon: FolderOpen },
+    { name: 'Articles', href: '/articles', icon: FileText },
+    { name: 'About', href: '/about', icon: User },
   ];
 
   return (
-    <header className="stickyh top-2 flex h-12 w-full items-center justify-between rounded-xl border border-sidebar-border bg-sidebar px-4 py-2 shadow dark:shadow-none">
+    <header className="-translate-x-1/2 fixed top-2 left-1/2 flex h-14 w-fit items-center gap-2 rounded-lg border border-sidebar-border bg-sidebar p-2">
       <Link
         className="font-bold text-xl transition-opacity hover:opacity-80"
         href={{ pathname: '/' }}
       >
         notreall<span className="text-primary">yuri</span>
       </Link>
+      <Separator orientation="vertical" />
       <div className="flex h-full items-center gap-4">
         <nav className="inline-flex gap-3 font-medium">
           <TooltipProvider>
-            {pathData.map((item) => (
-              <Tooltip key={item.path}>
+            {navData.map((item) => (
+              <Tooltip key={item.name}>
                 <TooltipTrigger asChild>
                   <Button
                     asChild
@@ -37,7 +38,7 @@ export function Header() {
                     size="icon"
                     variant="ghost"
                   >
-                    <Link href={{ pathname: item.path }}>
+                    <Link href={{ pathname: item.href }}>
                       <item.icon className="size-4" />
                     </Link>
                   </Button>

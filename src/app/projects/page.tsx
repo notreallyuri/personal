@@ -1,3 +1,3 @@
 export default function Page() {
-  return <main>Test</main>;
+  return <main className="pt-14">Test</main>;
 }
