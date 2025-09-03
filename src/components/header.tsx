@@ -1,4 +1,4 @@
-import { FileText, FolderOpen, User } from 'lucide-react';
+import { FileText, FolderOpen, type LucideIcon, User } from 'lucide-react';
 import Link from 'next/link';
 import { ThemeChanger } from './theme-changer';
 import { Button } from './ui/button';
@@ -11,14 +11,14 @@ import {
 } from './ui/tooltip';
 
 export function Header() {
-  const navData = [
+  const navData: { name: string; href: string; icon: LucideIcon }[] = [
     { name: 'Projects', href: '/projects', icon: FolderOpen },
     { name: 'Articles', href: '/articles', icon: FileText },
     { name: 'About', href: '/about', icon: User },
   ];
 
   return (
-    <header className="-translate-x-1/2 fixed top-2 left-1/2 flex h-14 w-fit items-center gap-2 rounded-lg border border-sidebar-border bg-sidebar p-2">
+    <header className="-translate-x-1/2 fixed top-2 left-1/2 flex h-12 w-fit items-center gap-4 rounded-lg border border-sidebar-border bg-sidebar p-2">
       <Link
         className="font-bold text-xl transition-opacity hover:opacity-80"
         href={{ pathname: '/' }}
