@@ -58,7 +58,7 @@ export type Tag = z.infer<typeof tagSchema>;
 export type TagType = z.infer<typeof tagTypeEnum>;
 export type TagCategory = z.infer<typeof tagCategoryEnum>;
 
-const TAG_CONFIG: Record<TagType, Omit<Tag, 'id'>> = {
+export const TAG_CONFIG: Record<TagType, Omit<Tag, 'id'>> = {
   typescript: { name: 'TypeScript', category: 'language' },
   frontend: { name: 'Frontend', category: 'frontend' },
   react: { name: 'React', category: 'frontend' },
