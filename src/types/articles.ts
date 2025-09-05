@@ -1,23 +1,23 @@
 import { z } from 'zod';
 import { Embed } from './embeds';
+import { TagTypeEnum } from './tag';
 
 const MAX_TITLE_LENGTH = 100;
 const MAX_CONTENT_LENGTH = 50_000;
 const MAX_EXCERPT_LENGTH = 300;
 const MAX_SLUG_LENGTH = 100;
-const MAX_TAG_LENGTH = 30;
 const MAX_META_TITLE_LENGTH = 60;
 const MAX_META_DESCRIPTION_LENGTH = 160;
 const MAX_TAGS_COUNT = 10;
 
-export const ArticleStatus = z.enum(['draft', 'published']);
+export const ArticleStatusEnum = z.enum(['draft', 'published']);
 
-export const ArticleSEO = z.object({
+export const ArticleSEOSchema = z.object({
   metaTitle: z.string().max(MAX_META_TITLE_LENGTH).optional(),
   metaDescription: z.string().max(MAX_META_DESCRIPTION_LENGTH).optional(),
 });
 
-export const Article = z
+export const ArticleSchema = z
   .object({
     id: z.uuid(),
     slug: z
@@ -33,12 +33,9 @@ export const Article = z
     excerpt: z.string().min(10).max(MAX_EXCERPT_LENGTH).optional(),
     content: z.string().min(10).max(MAX_CONTENT_LENGTH),
 
-    tags: z
-      .array(z.string().max(MAX_TAG_LENGTH))
-      .max(MAX_TAGS_COUNT)
-      .default([]),
+    tags: z.array(TagTypeEnum).max(MAX_TAGS_COUNT).default([]),
 
-    status: ArticleStatus.default('draft'),
+    status: ArticleStatusEnum.default('draft'),
     publishedAt: z.date().optional(),
     updatedAt: z.date(),
 
@@ -46,7 +43,7 @@ export const Article = z
     isFeatured: z.boolean().default(false),
     embeds: z.array(Embed).default([]),
 
-    seo: ArticleSEO.optional(),
+    seo: ArticleSEOSchema.optional(),
   })
   .refine(
     (data) => {
@@ -61,7 +58,7 @@ export const Article = z
     }
   );
 
-export const ArticlePreview = Article.pick({
+export const ArticlePreview = ArticleSchema.pick({
   id: true,
   slug: true,
   title: true,
@@ -72,13 +69,13 @@ export const ArticlePreview = Article.pick({
   isFeatured: true,
 });
 
-export const CreateArticle = Article.omit({
+export const CreateArticle = ArticleSchema.omit({
   id: true,
   updatedAt: true,
 });
 
-export type Article = z.infer<typeof Article>;
-export type ArticleStatus = z.infer<typeof ArticleStatus>;
-export type ArticleSEO = z.infer<typeof ArticleSEO>;
+export type Article = z.infer<typeof ArticleSchema>;
+export type ArticleStatus = z.infer<typeof ArticleStatusEnum>;
+export type ArticleSEO = z.infer<typeof ArticleSEOSchema>;
 export type ArticlePreview = z.infer<typeof ArticlePreview>;
 export type CreateArticle = z.infer<typeof CreateArticle>;

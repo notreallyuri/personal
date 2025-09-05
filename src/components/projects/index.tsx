@@ -20,11 +20,7 @@ export function Projects() {
 
   return (
     <>
-      <section
-        className="gap-2 space-y-2 rounded-lg border bg-accent/50 p-2"
-        id="search"
-      >
-        <p className="font-semibold text-lg">Filter</p>
+      <section className="rounded-lg border bg-accent/50 p-2" id="search">
         <ProjectsFilters
           categoryFilter={categoryFilter}
           hasFilters={hasFilters}

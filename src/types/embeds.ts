@@ -3,14 +3,14 @@ import { z } from 'zod';
 const MIN_ZOOM = 0.1;
 const MAX_ZOOM = 5;
 
-const BaseEmbed = z.object({
+const BaseEmbedSchema = z.object({
   width: z.number().min(1).optional(),
   height: z.number().min(1).optional(),
   caption: z.string().optional(),
   alignment: z.enum(['left', 'center', 'right', 'full']).default('center'),
 });
 
-export const YoutubeEmbed = BaseEmbed.extend({
+export const YoutubeEmbedSchema = BaseEmbedSchema.extend({
   type: z.literal('youtube'),
   url: z.url(),
   videoId: z.string().optional(),
@@ -18,29 +18,29 @@ export const YoutubeEmbed = BaseEmbed.extend({
   autoplay: z.boolean().default(false),
 });
 
-export const VimeoEmbed = BaseEmbed.extend({
+export const VimeoEmbedSchema = BaseEmbedSchema.extend({
   type: z.literal('vimeo'),
   url: z.url(),
   videoId: z.string().optional(),
 });
 
-export const TwitterEmbed = BaseEmbed.extend({
+export const TwitterEmbedSchema = BaseEmbedSchema.extend({
   type: z.literal('twitter'),
   url: z.url(),
   theme: z.enum(['light', 'dark']).optional(),
 });
 
-export const InstagramEmbed = BaseEmbed.extend({
+export const InstagramEmbedSchema = BaseEmbedSchema.extend({
   type: z.literal('instagram'),
   url: z.url(),
 });
 
-export const LinkedInEmbed = BaseEmbed.extend({
+export const LinkedInEmbedSchema = BaseEmbedSchema.extend({
   type: z.literal('linkedin'),
   url: z.url(),
 });
 
-export const CodepenEmbed = BaseEmbed.extend({
+export const CodepenEmbedSchema = BaseEmbedSchema.extend({
   type: z.literal('codepen'),
   url: z.url(),
   penId: z.string(),
@@ -49,14 +49,14 @@ export const CodepenEmbed = BaseEmbed.extend({
   preview: z.boolean().default(true),
 });
 
-export const GithubGistEmbed = BaseEmbed.extend({
+export const GithubGistEmbedSchema = BaseEmbedSchema.extend({
   type: z.literal('github-gist'),
   url: z.url(),
   gistId: z.string(),
   filename: z.string().optional(),
 });
 
-export const StackblitzEmbed = BaseEmbed.extend({
+export const StackblitzEmbedSchema = BaseEmbedSchema.extend({
   type: z.literal('stackblitz'),
   url: z.url(),
   projectId: z.string(),
@@ -64,20 +64,20 @@ export const StackblitzEmbed = BaseEmbed.extend({
   view: z.enum(['both', 'editor', 'preview']).default('both'),
 });
 
-export const FigmaEmbed = BaseEmbed.extend({
+export const FigmaEmbedSchema = BaseEmbedSchema.extend({
   type: z.literal('figma'),
   url: z.url(),
   embedUrl: z.url(),
 });
 
-export const IframeEmbed = BaseEmbed.extend({
+export const IframeEmbedSchema = BaseEmbedSchema.extend({
   type: z.literal('iframe'),
   url: z.url(),
   title: z.string(),
   sandbox: z.string().optional(),
 });
 
-export const ImageEmbed = BaseEmbed.extend({
+export const ImageEmbedSchema = BaseEmbedSchema.extend({
   type: z.literal('image'),
   url: z.url(),
   alt: z.string(),
@@ -85,7 +85,7 @@ export const ImageEmbed = BaseEmbed.extend({
   loading: z.enum(['lazy', 'eager']).default('lazy'),
 });
 
-export const AudioEmbed = BaseEmbed.extend({
+export const AudioEmbedSchema = BaseEmbedSchema.extend({
   type: z.literal('audio'),
   url: z.url(),
   title: z.string().optional(),
@@ -93,54 +93,54 @@ export const AudioEmbed = BaseEmbed.extend({
   autoplay: z.boolean().default(false),
 });
 
-export const PDFEmbed = BaseEmbed.extend({
+export const PDFEmbedSchema = BaseEmbedSchema.extend({
   type: z.literal('pdf'),
   url: z.url(),
   page: z.number().min(1).optional(),
   zoom: z.number().min(MIN_ZOOM).max(MAX_ZOOM).optional(),
 });
 
-export const GoogleDocsEmbed = BaseEmbed.extend({
+export const GoogleDocsEmbedSchema = BaseEmbedSchema.extend({
   type: z.literal('google-docs'),
   url: z.url(),
   documentId: z.string(),
 });
 
 export const Embed = z.discriminatedUnion('type', [
-  YoutubeEmbed,
-  VimeoEmbed,
-  TwitterEmbed,
-  InstagramEmbed,
-  LinkedInEmbed,
-  CodepenEmbed,
-  GithubGistEmbed,
-  StackblitzEmbed,
-  FigmaEmbed,
-  IframeEmbed,
-  ImageEmbed,
-  AudioEmbed,
-  PDFEmbed,
-  GoogleDocsEmbed,
+  YoutubeEmbedSchema,
+  VimeoEmbedSchema,
+  TwitterEmbedSchema,
+  InstagramEmbedSchema,
+  LinkedInEmbedSchema,
+  CodepenEmbedSchema,
+  GithubGistEmbedSchema,
+  StackblitzEmbedSchema,
+  FigmaEmbedSchema,
+  IframeEmbedSchema,
+  ImageEmbedSchema,
+  AudioEmbedSchema,
+  PDFEmbedSchema,
+  GoogleDocsEmbedSchema,
 ]);
 
 export type Embed = z.infer<typeof Embed>;
-export type BaseEmbed = z.infer<typeof BaseEmbed>;
+export type BaseEmbed = z.infer<typeof BaseEmbedSchema>;
 
-export type YoutubeEmbed = z.infer<typeof YoutubeEmbed>;
-export type VimeoEmbed = z.infer<typeof VimeoEmbed>;
+export type YoutubeEmbed = z.infer<typeof YoutubeEmbedSchema>;
+export type VimeoEmbed = z.infer<typeof VimeoEmbedSchema>;
 
-export type TwitterEmbed = z.infer<typeof TwitterEmbed>;
-export type InstagramEmbed = z.infer<typeof InstagramEmbed>;
-export type LinkedInEmbed = z.infer<typeof LinkedInEmbed>;
+export type TwitterEmbed = z.infer<typeof TwitterEmbedSchema>;
+export type InstagramEmbed = z.infer<typeof InstagramEmbedSchema>;
+export type LinkedInEmbed = z.infer<typeof LinkedInEmbedSchema>;
 
-export type CodepenEmbed = z.infer<typeof CodepenEmbed>;
-export type GithubGistEmbed = z.infer<typeof GithubGistEmbed>;
-export type StackblitzEmbed = z.infer<typeof StackblitzEmbed>;
+export type CodepenEmbed = z.infer<typeof CodepenEmbedSchema>;
+export type GithubGistEmbed = z.infer<typeof GithubGistEmbedSchema>;
+export type StackblitzEmbed = z.infer<typeof StackblitzEmbedSchema>;
 
-export type FigmaEmbed = z.infer<typeof FigmaEmbed>;
-export type IframeEmbed = z.infer<typeof IframeEmbed>;
+export type FigmaEmbed = z.infer<typeof FigmaEmbedSchema>;
+export type IframeEmbed = z.infer<typeof IframeEmbedSchema>;
 
-export type ImageEmbed = z.infer<typeof ImageEmbed>;
-export type AudioEmbed = z.infer<typeof AudioEmbed>;
-export type PDFEmbed = z.infer<typeof PDFEmbed>;
-export type GoogleDocsEmbed = z.infer<typeof GoogleDocsEmbed>;
+export type ImageEmbed = z.infer<typeof ImageEmbedSchema>;
+export type AudioEmbed = z.infer<typeof AudioEmbedSchema>;
+export type PDFEmbed = z.infer<typeof PDFEmbedSchema>;
+export type GoogleDocsEmbed = z.infer<typeof GoogleDocsEmbedSchema>;

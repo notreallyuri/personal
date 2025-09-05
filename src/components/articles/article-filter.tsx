@@ -2,53 +2,36 @@
 import { Search } from 'lucide-react';
 import { useRef } from 'react';
 import { TAG_CONFIG } from '@/lib/tag';
-import { PROJECT_CATEGORIES } from '@/types/project';
-import { ComboBox, MultiComboBox } from '../combobox';
+import { MultiComboBox } from '../combobox';
 import { Input } from '../ui/input';
-
-const CATEGORY_OPTIONS = Object.entries(PROJECT_CATEGORIES).map(
-  ([value, label]) => ({
-    label,
-    value,
-  })
-);
 
 const TAG_OPTIONS = Object.entries(TAG_CONFIG).map(([value, config]) => ({
   label: config.name,
   value,
 }));
 
-type ProjectsFiltersProps = {
-  categoryFilter: string;
+type ArticleFilterProps = {
   hasFilters: boolean;
-  onCategoryChange: (value: string) => void;
+  onTextChange: (text: string) => void;
+  onTagsChange: (tags: string[]) => void;
   onClearFilters: () => void;
-  onTagsChange: (values: string[]) => void;
-  onTextChange: (value: string) => void;
-  tagsFilter: string[];
   textFilter: string;
+  tagsFilter: string[];
 };
 
-export function ProjectsFilters({
-  categoryFilter,
+export function ArticleFilter({
   hasFilters,
-  onCategoryChange,
-  onClearFilters,
-  onTagsChange,
   onTextChange,
-  tagsFilter,
+  onTagsChange,
   textFilter,
-}: ProjectsFiltersProps) {
+  tagsFilter,
+  onClearFilters,
+}: ArticleFilterProps) {
   const userInitiatedChange = useRef(false);
 
   const handleSearchChange = (value: string) => {
     userInitiatedChange.current = true;
     onTextChange(value);
-  };
-
-  const handleCategoryChange = (value: string) => {
-    userInitiatedChange.current = true;
-    onCategoryChange(value);
   };
 
   const handleTagsChange = (values: string[]) => {
@@ -71,17 +54,6 @@ export function ProjectsFilters({
         </div>
 
         <div className="min-w-48">
-          <ComboBox
-            emptyStateMessage="No categories found."
-            inputPlaceholder="Search categories..."
-            options={CATEGORY_OPTIONS}
-            placeholder="All Categories"
-            setValue={handleCategoryChange}
-            value={categoryFilter}
-          />
-        </div>
-
-        <div className="min-w-48">
           <MultiComboBox
             emptyStateMessage="No tags found."
             inputPlaceholder="Search tags..."
@@ -97,8 +69,6 @@ export function ProjectsFilters({
         <div className="flex items-center justify-between">
           <p className="text-muted-foreground text-sm">
             {textFilter && `Text: "${textFilter}"`}
-            {categoryFilter &&
-              ` • Category: ${CATEGORY_OPTIONS.find((c) => c.value === categoryFilter)?.label}`}
             {tagsFilter.length > 0 && ` • Tags: ${tagsFilter.length} selected`}
           </p>
           <button

@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
+import { TAG_CONFIG } from '@/lib/tag';
 import { cn } from '@/lib/utils';
 import { PROJECT_CATEGORIES, type Project } from '@/types/project';
-import { TAG_CONFIG } from '@/types/tag';
 
 export function ProjectCard({ project }: { project: Project }) {
   const [isHovered, setIsHovered] = useState(false);

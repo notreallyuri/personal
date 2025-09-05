@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { TagType } from './tag';
+import { TagTypeEnum } from './tag';
 
-export const ProjectCategory = z.enum([
+export const ProjectCategoryEnum = z.enum([
   'frontend',
   'backend',
   'fullstack',
@@ -9,13 +9,13 @@ export const ProjectCategory = z.enum([
   'desktop',
 ]);
 
-export const Project = z.object({
+export const ProjectSchema = z.object({
   title: z.string(),
   slug: z.string(),
   description: z.string().optional(),
   github: z.url(),
-  category: ProjectCategory,
-  tags: z.array(TagType),
+  category: ProjectCategoryEnum,
+  tags: z.array(TagTypeEnum),
   date: z.date(),
 });
 
@@ -27,5 +27,5 @@ export const PROJECT_CATEGORIES: Record<ProjectCategory, string> = {
   desktop: 'Desktop',
 };
 
-export type Project = z.infer<typeof Project>;
-export type ProjectCategory = z.infer<typeof ProjectCategory>;
+export type Project = z.infer<typeof ProjectSchema>;
+export type ProjectCategory = z.infer<typeof ProjectCategoryEnum>;
