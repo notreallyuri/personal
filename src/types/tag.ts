@@ -1,8 +1,7 @@
 import { z } from 'zod';
 
-export const tagTypeEnum = z.enum([
+export const TagType = z.enum([
   'typescript',
-  'frontend',
   'react',
   'nextjs',
   'nodejs',
@@ -37,7 +36,7 @@ export const tagTypeEnum = z.enum([
   'yew',
 ]);
 
-export const tagCategoryEnum = z.enum([
+export const TagCategory = z.enum([
   'frontend',
   'backend',
   'testing',
@@ -48,19 +47,29 @@ export const tagCategoryEnum = z.enum([
   'database',
 ]);
 
-export const tagSchema = z.object({
-  id: tagTypeEnum,
+export const Tag = z.object({
+  id: TagType,
   name: z.string(),
-  category: tagCategoryEnum,
+  category: TagCategory,
 });
 
-export type Tag = z.infer<typeof tagSchema>;
-export type TagType = z.infer<typeof tagTypeEnum>;
-export type TagCategory = z.infer<typeof tagCategoryEnum>;
+export type Tag = z.infer<typeof Tag>;
+export type TagType = z.infer<typeof TagType>;
+export type TagCategory = z.infer<typeof TagCategory>;
+
+export const TAG_CATEGORIES: Record<TagCategory, string> = {
+  frontend: 'Frontend',
+  backend: 'Backend',
+  testing: 'Testing',
+  tooling: 'Tooling',
+  language: 'Language',
+  systems: 'Systems',
+  'state-management': 'State Management',
+  database: 'Database',
+};
 
 export const TAG_CONFIG: Record<TagType, Omit<Tag, 'id'>> = {
   typescript: { name: 'TypeScript', category: 'language' },
-  frontend: { name: 'Frontend', category: 'frontend' },
   react: { name: 'React', category: 'frontend' },
   nextjs: { name: 'Next.js', category: 'frontend' },
   tailwindcss: { name: 'Tailwind CSS', category: 'frontend' },

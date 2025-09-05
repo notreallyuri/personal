@@ -7,7 +7,7 @@ import { ThemeChanger } from './theme-changer';
 import { Button } from './ui/button';
 import { Separator } from './ui/separator';
 
-const navData: { name: string; href: string; icon: LucideIcon }[] = [
+const NAV_DATA: { name: string; href: string; icon: LucideIcon }[] = [
   { name: 'Projects', href: '/projects', icon: FolderOpen },
   { name: 'Articles', href: '/articles', icon: FileText },
   { name: 'About', href: '/about', icon: User },
@@ -28,7 +28,7 @@ export function Header() {
       </Link>
       <div className="flex h-full items-center gap-4">
         <nav className="inline-flex gap-3 font-medium">
-          {navData.map((item) => (
+          {NAV_DATA.map((item) => (
             <Button
               asChild
               className={cn(
