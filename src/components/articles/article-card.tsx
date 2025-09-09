@@ -1,5 +1,6 @@
 import { Calendar, Clock } from 'lucide-react';
 import Link from 'next/link';
+import { TAG_CONFIG } from '@/lib/tag';
 import type { Article } from '@/types/articles';
 
 const CHARACTERS_PER_MINUTE = 1000;
@@ -14,7 +15,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
 
   return (
     <Link href={`/articles/${article.slug}`}>
-      <article className="group rounded-lg border bg-muted p-4 transition-all duration-200 hover:border-primary/50 hover:shadow-md">
+      <article className="group rounded-lg border bg-background p-4 shadow transition-all duration-200 hover:border-primary/50 hover:shadow-md dark:bg-accent">
         <header className="space-y-2">
           <div className="flex items-start justify-between gap-3">
             <h2 className="font-semibold text-xl leading-tight group-hover:text-primary">
@@ -57,14 +58,14 @@ export function ArticleCard({ article }: ArticleCardProps) {
           <div className="mt-4 flex flex-wrap gap-2">
             {article.tags.slice(0, MAX_VISIBLE_TAGS).map((tag) => (
               <span
-                className="inline-flex rounded-md bg-muted px-2 py-1 font-medium text-muted-foreground text-xs"
+                className="inline-flex rounded-lg border bg-accent px-2 py-0.5 font-medium text-muted-foreground text-xs hover:text-foreground dark:bg-background"
                 key={tag}
               >
-                {tag}
+                {TAG_CONFIG[tag].name}
               </span>
             ))}
             {article.tags.length > MAX_VISIBLE_TAGS && (
-              <span className="inline-flex rounded-md bg-muted px-2 py-1 font-medium text-muted-foreground text-xs">
+              <span className="inline-flex rounded-lg bg-muted px-1 py-0.5 font-medium text-muted-foreground text-xs">
                 +{article.tags.length - MAX_VISIBLE_TAGS}
               </span>
             )}

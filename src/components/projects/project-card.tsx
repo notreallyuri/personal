@@ -55,7 +55,7 @@ export function ProjectCard({ project }: { project: Project }) {
       {/* biome-ignore lint/a11y/noStaticElementInteractions: needed */}
       <div
         className={cn(
-          'flex h-28 w-full flex-col rounded-lg border border-sidebar-border bg-accent p-3 shadow-sm transition-all duration-300 ease-out',
+          'flex h-28 w-full flex-col rounded-lg border bg-background p-3 shadow-sm transition-all duration-300 ease-out dark:bg-accent',
           isHovered &&
             'absolute inset-0 z-50 h-fit min-h-44 scale-110 border-primary/30 shadow-2xl shadow-primary/10',
           'origin-center'
@@ -88,7 +88,12 @@ export function ProjectCard({ project }: { project: Project }) {
           </time>
         </header>
 
-        <p className="mb-2 font-medium text-muted-foreground text-sm">
+        <p
+          className={cn(
+            'mb-2 font-medium text-muted-foreground text-sm',
+            isHovered && 'text-foreground'
+          )}
+        >
           {PROJECT_CATEGORIES[project.category]}
         </p>
 
@@ -113,7 +118,7 @@ export function ProjectCard({ project }: { project: Project }) {
             {project.tags.map((tag) => (
               <span
                 className={cn(
-                  'inline-flex select-none rounded-md border bg-background px-2 py-1',
+                  'inline-flex select-none rounded-md border bg-accent/75 px-2 py-0.5 dark:bg-background',
                   'font-medium text-xs transition-all duration-200',
                   'hover:bg-primary hover:text-primary-foreground'
                 )}
