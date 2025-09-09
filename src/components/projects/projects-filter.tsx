@@ -70,27 +70,25 @@ export function ProjectsFilters({
           <Search className="-translate-y-1/2 absolute top-1/2 left-2 size-4 peer-focus:text-primary" />
         </div>
 
-        <div className="min-w-48">
-          <ComboBox
-            emptyStateMessage="No categories found."
-            inputPlaceholder="Search categories..."
-            options={CATEGORY_OPTIONS}
-            placeholder="All Categories"
-            setValue={handleCategoryChange}
-            value={categoryFilter}
-          />
-        </div>
+        <ComboBox
+          className="w-48"
+          emptyStateMessage="No categories found."
+          inputPlaceholder="Search categories..."
+          options={CATEGORY_OPTIONS}
+          placeholder="All Categories"
+          setValue={handleCategoryChange}
+          value={categoryFilter}
+        />
 
-        <div className="min-w-48">
-          <MultiComboBox
-            emptyStateMessage="No tags found."
-            inputPlaceholder="Search tags..."
-            options={TAG_OPTIONS}
-            placeholder="Filter by Tags"
-            setValue={handleTagsChange}
-            values={tagsFilter}
-          />
-        </div>
+        <MultiComboBox
+          className="w-48"
+          emptyStateMessage="No tags found."
+          inputPlaceholder="Search tags..."
+          options={TAG_OPTIONS}
+          placeholder="Filter by Tags"
+          setValue={handleTagsChange}
+          values={tagsFilter}
+        />
       </div>
 
       {hasFilters && (

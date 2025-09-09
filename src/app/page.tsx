@@ -2,7 +2,7 @@ import { SplitText } from '@/components/split-text';
 
 export default function Home() {
   return (
-    <main className="flex h-screen w-full flex-col items-center justify-center">
+    <main className="relative flex h-screen w-full flex-col items-center justify-center">
       <div className="flex flex-wrap items-center justify-center">
         <SplitText
           className="font-bold text-5xl"
