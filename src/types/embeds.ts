@@ -1,146 +1,88 @@
 import { z } from 'zod';
 
-const MIN_ZOOM = 0.1;
-const MAX_ZOOM = 5;
+const MIN_FILE_SIZE = 1;
+const MAX_FILE_SIZE = 100_000_000;
 
-const BaseEmbedSchema = z.object({
+const BaseFileEmbedSchema = z.object({
+  id: z.uuid(),
+  filename: z.string().min(1),
+  fileSize: z.number().min(MIN_FILE_SIZE).max(MAX_FILE_SIZE),
+  mimeType: z.string(),
+  url: z.string().url(),
+  uploadedAt: z.date(),
   width: z.number().min(1).optional(),
   height: z.number().min(1).optional(),
   caption: z.string().optional(),
-  alignment: z.enum(['left', 'center', 'right', 'full']).default('center'),
+  title: z.string().optional(),
+  description: z.string().optional(),
 });
 
-export const YoutubeEmbedSchema = BaseEmbedSchema.extend({
-  type: z.literal('youtube'),
-  url: z.url(),
-  videoId: z.string().optional(),
-  startTime: z.number().min(0).optional(),
-  autoplay: z.boolean().default(false),
-});
-
-export const VimeoEmbedSchema = BaseEmbedSchema.extend({
-  type: z.literal('vimeo'),
-  url: z.url(),
-  videoId: z.string().optional(),
-});
-
-export const TwitterEmbedSchema = BaseEmbedSchema.extend({
-  type: z.literal('twitter'),
-  url: z.url(),
-  theme: z.enum(['light', 'dark']).optional(),
-});
-
-export const InstagramEmbedSchema = BaseEmbedSchema.extend({
-  type: z.literal('instagram'),
-  url: z.url(),
-});
-
-export const LinkedInEmbedSchema = BaseEmbedSchema.extend({
-  type: z.literal('linkedin'),
-  url: z.url(),
-});
-
-export const CodepenEmbedSchema = BaseEmbedSchema.extend({
-  type: z.literal('codepen'),
-  url: z.url(),
-  penId: z.string(),
-  defaultTab: z.enum(['html', 'css', 'js', 'result']).default('result'),
-  theme: z.enum(['light', 'dark']).optional(),
-  preview: z.boolean().default(true),
-});
-
-export const GithubGistEmbedSchema = BaseEmbedSchema.extend({
-  type: z.literal('github-gist'),
-  url: z.url(),
-  gistId: z.string(),
-  filename: z.string().optional(),
-});
-
-export const StackblitzEmbedSchema = BaseEmbedSchema.extend({
-  type: z.literal('stackblitz'),
-  url: z.url(),
-  projectId: z.string(),
-  file: z.string().optional(),
-  view: z.enum(['both', 'editor', 'preview']).default('both'),
-});
-
-export const FigmaEmbedSchema = BaseEmbedSchema.extend({
-  type: z.literal('figma'),
-  url: z.url(),
-  embedUrl: z.url(),
-});
-
-export const IframeEmbedSchema = BaseEmbedSchema.extend({
-  type: z.literal('iframe'),
-  url: z.url(),
-  title: z.string(),
-  sandbox: z.string().optional(),
-});
-
-export const ImageEmbedSchema = BaseEmbedSchema.extend({
+export const ImageFileEmbedSchema = BaseFileEmbedSchema.extend({
   type: z.literal('image'),
-  url: z.url(),
-  alt: z.string(),
-  title: z.string().optional(),
+  alt: z.string().min(1),
   loading: z.enum(['lazy', 'eager']).default('lazy'),
+  thumbnail: z.string().url().optional(),
 });
 
-export const AudioEmbedSchema = BaseEmbedSchema.extend({
-  type: z.literal('audio'),
-  url: z.url(),
-  title: z.string().optional(),
+export const VideoFileEmbedSchema = BaseFileEmbedSchema.extend({
+  type: z.literal('video'),
+  duration: z.number().min(0).optional(),
+  thumbnail: z.string().url().optional(),
+  subtitles: z.string().url().optional(),
   controls: z.boolean().default(true),
   autoplay: z.boolean().default(false),
+  loop: z.boolean().default(false),
 });
 
-export const PDFEmbedSchema = BaseEmbedSchema.extend({
-  type: z.literal('pdf'),
-  url: z.url(),
-  page: z.number().min(1).optional(),
-  zoom: z.number().min(MIN_ZOOM).max(MAX_ZOOM).optional(),
+export const AudioFileEmbedSchema = BaseFileEmbedSchema.extend({
+  type: z.literal('audio'),
+  duration: z.number().min(0).optional(),
+  controls: z.boolean().default(true),
+  autoplay: z.boolean().default(false),
+  loop: z.boolean().default(false),
 });
 
-export const GoogleDocsEmbedSchema = BaseEmbedSchema.extend({
-  type: z.literal('google-docs'),
-  url: z.url(),
-  documentId: z.string(),
+export const DocumentFileEmbedSchema = BaseFileEmbedSchema.extend({
+  type: z.literal('document'),
+  pageCount: z.number().min(1).optional(),
+  downloadable: z.boolean().default(true),
 });
 
-export const Embed = z.discriminatedUnion('type', [
-  YoutubeEmbedSchema,
-  VimeoEmbedSchema,
-  TwitterEmbedSchema,
-  InstagramEmbedSchema,
-  LinkedInEmbedSchema,
-  CodepenEmbedSchema,
-  GithubGistEmbedSchema,
-  StackblitzEmbedSchema,
-  FigmaEmbedSchema,
-  IframeEmbedSchema,
-  ImageEmbedSchema,
-  AudioEmbedSchema,
-  PDFEmbedSchema,
-  GoogleDocsEmbedSchema,
+export const CodeFileEmbedSchema = BaseFileEmbedSchema.extend({
+  type: z.literal('code'),
+  language: z.string().optional(),
+  lineNumbers: z.boolean().default(true),
+  highlighted: z.array(z.number()).optional(),
+});
+
+export const FileEmbedSchema = z.discriminatedUnion('type', [
+  ImageFileEmbedSchema,
+  VideoFileEmbedSchema,
+  AudioFileEmbedSchema,
+  DocumentFileEmbedSchema,
+  CodeFileEmbedSchema,
 ]);
 
-export type Embed = z.infer<typeof Embed>;
-export type BaseEmbed = z.infer<typeof BaseEmbedSchema>;
+export const INLINE_EMBED_PATTERNS = {
+  youtube: /\[yt-embed:([^\]]+)\]/g,
+  vimeo: /\[vimeo-embed:([^\]]+)\]/g,
+  twitter: /\[tw-embed:([^\]]+)\]/g,
+  instagram: /\[ig-embed:([^\]]+)\]/g,
+  linkedin: /\[li-embed:([^\]]+)\]/g,
+  codepen: /\[cp-embed:([^\]]+)\]/g,
+  'github-gist': /\[gh-gist:([^\]]+)\]/g,
+  stackblitz: /\[sb-embed:([^\]]+)\]/g,
+  figma: /\[figma-embed:([^\]]+)\]/g,
+  iframe: /\[iframe:([^\]]+)\]/g,
+} as const;
 
-export type YoutubeEmbed = z.infer<typeof YoutubeEmbedSchema>;
-export type VimeoEmbed = z.infer<typeof VimeoEmbedSchema>;
+export type FileEmbed = z.infer<typeof FileEmbedSchema>;
+export type ImageFileEmbed = z.infer<typeof ImageFileEmbedSchema>;
+export type VideoFileEmbed = z.infer<typeof VideoFileEmbedSchema>;
+export type AudioFileEmbed = z.infer<typeof AudioFileEmbedSchema>;
+export type DocumentFileEmbed = z.infer<typeof DocumentFileEmbedSchema>;
+export type CodeFileEmbed = z.infer<typeof CodeFileEmbedSchema>;
 
-export type TwitterEmbed = z.infer<typeof TwitterEmbedSchema>;
-export type InstagramEmbed = z.infer<typeof InstagramEmbedSchema>;
-export type LinkedInEmbed = z.infer<typeof LinkedInEmbedSchema>;
+export type InlineEmbedType = keyof typeof INLINE_EMBED_PATTERNS;
 
-export type CodepenEmbed = z.infer<typeof CodepenEmbedSchema>;
-export type GithubGistEmbed = z.infer<typeof GithubGistEmbedSchema>;
-export type StackblitzEmbed = z.infer<typeof StackblitzEmbedSchema>;
-
-export type FigmaEmbed = z.infer<typeof FigmaEmbedSchema>;
-export type IframeEmbed = z.infer<typeof IframeEmbedSchema>;
-
-export type ImageEmbed = z.infer<typeof ImageEmbedSchema>;
-export type AudioEmbed = z.infer<typeof AudioEmbedSchema>;
-export type PDFEmbed = z.infer<typeof PDFEmbedSchema>;
-export type GoogleDocsEmbed = z.infer<typeof GoogleDocsEmbedSchema>;
+export type Embed = FileEmbed;

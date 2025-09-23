@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Figtree, JetBrains_Mono } from 'next/font/google';
-import { Header } from '@/components/header';
 import { ThemeProvider } from './_provider/next-themes';
 import './globals.css';
 
@@ -35,7 +34,6 @@ export default function RootLayout({
           disableTransitionOnChange
           enableSystem
         >
-          <Header />
           {children}
         </ThemeProvider>
       </body>
