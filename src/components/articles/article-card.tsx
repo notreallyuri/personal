@@ -14,10 +14,10 @@ export function ArticleCard({ article }: ArticleCardProps) {
 
   return (
     <Link href={`/articles/${article.slug}`}>
-      <article className="group rounded-lg border bg-muted p-4 transition-all duration-200 hover:border-primary/50 hover:shadow-md">
+      <article className="group relative rounded-lg border bg-muted p-4 transition-all duration-200 hover:border-primary/50 hover:shadow-md">
         <header className="space-y-2">
           <div className="flex items-start justify-between gap-3">
-            <h2 className="font-semibold text-xl leading-tight group-hover:text-primary">
+            <h2 className="font-semibold text-xl leading-tight">
               {article.title}
             </h2>
             {article.isFeatured && (
@@ -57,7 +57,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
           <div className="mt-4 flex flex-wrap gap-2">
             {article.tags.slice(0, MAX_VISIBLE_TAGS).map((tag) => (
               <span
-                className="inline-flex rounded-md bg-muted px-2 py-1 font-medium text-muted-foreground text-xs"
+                className="inline-flex rounded-md border border-sidebar-border bg-card px-2 py-1 font-medium text-muted-foreground text-xs"
                 key={tag}
               >
                 {tag}
@@ -70,6 +70,11 @@ export function ArticleCard({ article }: ArticleCardProps) {
             )}
           </div>
         )}
+        <div
+          className={
+            'absolute inset-0 rounded-lg bg-gradient-to-br from-primary/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100'
+          }
+        />
       </article>
     </Link>
   );
