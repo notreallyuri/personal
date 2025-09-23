@@ -19,36 +19,38 @@ export function Header() {
   const isActive = (href: string) => pathname === href;
 
   return (
-    <header className="sticky top-2 z-90 flex h-12 w-full items-center justify-between gap-4 rounded-lg border border-sidebar-border bg-sidebar p-2">
-      <Link
-        className="font-bold text-xl transition-opacity hover:opacity-80"
-        href="/"
-      >
-        notreall<span className="text-primary">yuri</span>
-      </Link>
-      <div className="flex h-full items-center gap-4">
-        <nav className="inline-flex gap-3 font-medium">
-          {NAV_DATA.map((item) => (
-            <Button
-              asChild
-              className={cn(
-                'hover:text-primary',
-                isActive(item.href) &&
-                  'bg-primary/75 text-primary-foreground transition-colors hover:bg-primary/100 hover:text-primary-foreground dark:hover:bg-primary/100 dark:hover:text-primary-foreground'
-              )}
-              key={item.name}
-              size="sm"
-              variant="ghost"
-            >
-              <Link href={item.href}>
-                <item.icon className="size-4" />
-                <span>{item.name}</span>
-              </Link>
-            </Button>
-          ))}
-        </nav>
-        <Separator orientation="vertical" />
-        <ThemeChanger />
+    <header className="fixed top-2 z-50 w-full px-2">
+      <div className="flex h-12 items-center justify-between rounded-lg border border-sidebar-border bg-sidebar px-4 py-2 shadow hover:shadow-lg">
+        <Link
+          className="font-bold text-xl transition-opacity hover:opacity-80"
+          href="/"
+        >
+          notreall<span className="text-primary">yuri</span>
+        </Link>
+        <div className="flex h-full items-center gap-4">
+          <nav className="inline-flex gap-3 font-medium">
+            {NAV_DATA.map((item) => (
+              <Button
+                asChild
+                className={cn(
+                  'hover:text-primary',
+                  isActive(item.href) &&
+                    'bg-primary/75 text-primary-foreground transition-colors hover:bg-primary/100 hover:text-primary-foreground dark:hover:bg-primary/100 dark:hover:text-primary-foreground'
+                )}
+                key={item.name}
+                size="sm"
+                variant="ghost"
+              >
+                <Link href={item.href}>
+                  <item.icon className="size-4" />
+                  <span>{item.name}</span>
+                </Link>
+              </Button>
+            ))}
+          </nav>
+          <Separator orientation="vertical" />
+          <ThemeChanger />
+        </div>
       </div>
     </header>
   );

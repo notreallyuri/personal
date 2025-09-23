@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${figtree.className} ${jetBrainsMono.variable} relative min-h-screen w-full p-2 antialiased dark:bg-radial dark:from-neutral-800 dark:to-neutral-900`}
+        className={`${figtree.className} ${jetBrainsMono.variable} relative min-h-screen w-full antialiased`}
       >
         <ThemeProvider
           attribute="class"

@@ -18,6 +18,7 @@ import { Button } from './ui/button';
 
 type BaseProps = {
   placeholder?: string;
+  className?: string;
   inputPlaceholder?: string;
   emptyStateMessage?: string;
   options: { label: string; value: string }[];
@@ -40,12 +41,16 @@ export function ComboBox({
   options,
   value,
   setValue,
+  className,
 }: ComboBoxProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          className="w-full justify-between hover:bg-background/75"
+          className={cn(
+            'w-full justify-between hover:bg-background/75',
+            className
+          )}
           role="combobox"
           size="default"
           variant="outline"
@@ -120,12 +125,13 @@ export function MultiComboBox({
   options,
   values,
   setValue,
+  className,
 }: MultiComboBoxProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          className="relative w-full max-w-72 justify-between"
+          className={cn('relative w-full max-w-72 justify-between', className)}
           role="combobox"
           size="default"
           variant="outline"
