@@ -95,7 +95,7 @@ And here's what the Vercel team has to say about it:
     content: `Figma enables smooth collaboration between designers and engineers. This brief note shows how to share precise specs, inspect constraints, and embed frames in documentation or internal portals.
 
     Here's an embedded Figma frame:
-    [figma-embed:https://www.figma.com/file/ABCDE12345/Mock-Designs]
+    [figma-embed:https://www.figma.com/design/4Ut7mVELxVmRS3oCyKvPsk/Untitled?node-id=0-1&p=f&t=fZseQTaPc8v7fVOs-0]
 
     And here's a reference page for more context:
     [iframe:https://example.com]`,

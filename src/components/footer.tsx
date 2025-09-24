@@ -6,7 +6,7 @@ export function Footer() {
 
   return (
     <footer className="absolute right-0 bottom-0 left-0 z-10 flex h-12 w-full items-center justify-between border-border border-t bg-background/80 px-4 py-3 backdrop-blur-sm">
-      <p className="text-muted-foreground text-sm">© {currentYear} yuri</p>
+      <p className="text-muted-foreground text-sm">© {currentYear} Yuri VGR</p>
 
       <div className="flex h-full items-center gap-4">
         <a

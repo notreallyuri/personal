@@ -221,27 +221,29 @@ export default function Page() {
           </CardHeader>
           <CardContent>
             <div className="flex flex-col justify-center gap-4 sm:flex-row">
-              <Link aria-label="View my projects" href="/projects">
-                <Button
-                  className="min-w-40 transition-transform hover:scale-105"
-                  size="lg"
-                >
-                  View My Work
-                </Button>
-              </Link>
-
-              <a
-                aria-label="Send email to start a conversation"
-                href="mailto:yurivgr@icloud.com"
+              <Button
+                asChild
+                className="min-w-40 transition-transform hover:scale-105"
+                size="lg"
               >
-                <Button
-                  className="min-w-40 transition-transform hover:scale-105"
-                  size="lg"
-                  variant="outline"
+                <Link aria-label="View my projects" href="/projects">
+                  View My Work
+                </Link>
+              </Button>
+
+              <Button
+                asChild
+                className="min-w-40 transition-transform hover:scale-105"
+                size="lg"
+                variant="outline"
+              >
+                <a
+                  aria-label="Send email to start a conversation"
+                  href="mailto:yurivgr@icloud.com"
                 >
                   Get In Touch
-                </Button>
-              </a>
+                </a>
+              </Button>
             </div>
           </CardContent>
         </Card>
