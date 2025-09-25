@@ -106,14 +106,14 @@ function MultiComboBoxPill({ option, onRemove }: MultiComboBoxPillProps) {
     <button
       className={cn(
         'group flex select-none items-center gap-2 rounded-lg border border-sidebar-border bg-accent px-2 text-accent-foreground text-sm',
-        'border-sidebar-border/80 transition-colors hover:bg-accent/80 hover:text-accent-foreground/80'
+        'border-sidebar-border/80 transition-opacity hover:text-accent-foreground/80 hover:opacity-80'
       )}
       key={option.value}
       onClick={onRemove}
       type="button"
     >
       {option.label}
-      <X className="size-4 transition-colors group-hover:text-destructive" />
+      <X className="size-4 transition-colors group-hover:text-primary" />
     </button>
   );
 }

@@ -1,9 +1,9 @@
 'use client';
 import { Search } from 'lucide-react';
 import { useRef } from 'react';
+import { MultiComboBox } from '@/components/combobox';
+import { Input } from '@/components/ui/input';
 import { TAG_CONFIG } from '@/lib/tag';
-import { MultiComboBox } from '../combobox';
-import { Input } from '../ui/input';
 
 const TAG_OPTIONS = Object.entries(TAG_CONFIG).map(([value, config]) => ({
   label: config.name,

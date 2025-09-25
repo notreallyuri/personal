@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { MockDataAlert } from '@/components/mocked-alert';
-import { Projects } from '@/components/projects';
+import { Projects } from './_components/content';
 
 function ProjectsContent() {
   return (

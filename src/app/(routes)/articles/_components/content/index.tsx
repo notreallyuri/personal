@@ -2,8 +2,8 @@
 
 import { useArticlesFilters } from '@/hooks/use-article-filters';
 import { MOCK_ARTICLES } from '@/mock/articles';
-import { ArticleFilter } from './article-filter';
-import { ArticleList } from './article-list';
+import { ArticleList } from '../list';
+import { ArticleFilter } from './filter';
 
 export function Articles() {
   const {

@@ -1,7 +1,7 @@
 'use client';
 
 import type { Article } from '@/types/articles';
-import { ArticleCard } from './article-card';
+import { ArticleCard } from './content/card';
 
 type ArticleListProps = {
   filterCount: number;

@@ -1,5 +1,5 @@
-import { Articles } from '@/components/articles';
 import { MockDataAlert } from '@/components/mocked-alert';
+import { Articles } from './_components/content';
 
 export default function Page() {
   return (

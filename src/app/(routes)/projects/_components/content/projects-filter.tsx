@@ -1,10 +1,10 @@
 'use client';
 import { Search } from 'lucide-react';
 import { useRef } from 'react';
+import { ComboBox, MultiComboBox } from '@/components/combobox';
+import { Input } from '@/components/ui/input';
 import { TAG_CONFIG } from '@/lib/tag';
 import { PROJECT_CATEGORIES } from '@/types/project';
-import { ComboBox, MultiComboBox } from '../combobox';
-import { Input } from '../ui/input';
 
 const CATEGORY_OPTIONS = Object.entries(PROJECT_CATEGORIES).map(
   ([value, label]) => ({

@@ -3,6 +3,8 @@ import { TAG_CONFIG } from '@/lib/tag';
 import { cn } from '@/lib/utils';
 import { PROJECT_CATEGORIES, type Project } from '@/types/project';
 
+const MAX_VISIBLE_TAGS = 3;
+
 export function ProjectCard({ project }: { project: Project }) {
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -57,7 +59,7 @@ export function ProjectCard({ project }: { project: Project }) {
         className={cn(
           'flex h-28 w-full flex-col rounded-lg border bg-background p-3 shadow-sm transition-all duration-300 ease-out dark:bg-accent',
           isHovered &&
-            'absolute inset-0 z-50 h-fit min-h-44 scale-110 border-primary/30 shadow-2xl shadow-primary/10',
+            'absolute inset-0 z-50 h-fit min-h-36 scale-110 border-primary/30 shadow-2xl shadow-primary/10',
           'origin-center'
         )}
         onMouseEnter={handleMouseEnter}
@@ -100,7 +102,7 @@ export function ProjectCard({ project }: { project: Project }) {
         <p
           className={cn(
             'text-muted-foreground text-sm leading-relaxed transition-all duration-300',
-            isHovered ? 'line-clamp-none' : 'line-clamp-1'
+            isHovered ? 'line-clamp-2' : 'line-clamp-1'
           )}
         >
           {project.description}
@@ -114,8 +116,8 @@ export function ProjectCard({ project }: { project: Project }) {
               : 'max-h-0 overflow-hidden opacity-0'
           )}
         >
-          <div className="flex flex-wrap gap-1.5">
-            {project.tags.map((tag) => (
+          <div className="flex flex-wrap items-center gap-1.5">
+            {project.tags.slice(0, MAX_VISIBLE_TAGS).map((tag) => (
               <span
                 className={cn(
                   'inline-flex select-none rounded-md border bg-accent/75 px-2 py-0.5 dark:bg-background',
@@ -127,6 +129,11 @@ export function ProjectCard({ project }: { project: Project }) {
                 {TAG_CONFIG[tag].name}
               </span>
             ))}
+            {project.tags.length > MAX_VISIBLE_TAGS && (
+              <span className="text-muted-foreground text-xs">
+                +{project.tags.length - MAX_VISIBLE_TAGS}
+              </span>
+            )}
           </div>
         </div>
 
